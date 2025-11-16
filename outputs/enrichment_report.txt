@@ -1,0 +1,30 @@
+======================================================================
+RAPPORT D'ENRICHISSEMENT CONTEXTUEL
+======================================================================
+
+Date : 2025-11-16
+Input : outputs/person_FINAL_CLEAN.xlsx
+Output : outputs/acteurs_SDN_enriched.xlsx
+
+======================================================================
+STATISTIQUES
+======================================================================
+
+Entités traitées         : 832
+Temps total              : 999.0s (16.7 min)
+
+Taux de complétude :
+  - Description          : 97.7% (813/832)
+  - Nationalité          : 80.8% (672/832)
+  - Genre                : 58.1% (483/832)
+  - Catégorie            : 100.0% (832/832)
+
+Utilisation LLM          : 610 appels (73.3%)
+
+======================================================================
+CONCLUSION
+======================================================================
+
+✅ 832 personnes enrichies avec succès
+✅ Fichier Excel généré : outputs/acteurs_SDN_enriched.xlsx
+
