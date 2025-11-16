@@ -210,6 +210,30 @@ python scripts/evaluate_person.py \
 - Variantes : `dro.` (dr.), `sro.` (sr.), `sioro` (sinjoro), `coolbe` (coombe)
 - **Solution** : Dictionnaire `EXPLICIT_NAME_MAPPING` appliqué en Phase 1
 
+## LIMITATION IMPORTANTE : Duplications dans le corpus
+
+**Fréquences d'apparition potentiellement gonflées**
+
+Les statistiques de fréquence (nb_occurrences, nb_documents) doivent être interprétées avec prudence car :
+
+- Le corpus peut contenir des **documents en double** :
+  - Projets de protocole vs versions finales
+  - Traductions multiples du même document (FR/EN/DE/EO)
+  - Versions révisées d'un même texte
+
+- **Impact sur les métriques** :
+  - Une personne apparaissant 50 fois pourrait en réalité n'apparaître que dans 10 documents uniques
+  - Les TOP personnes/organisations pourraient être biaisées vers les documents traduits/dupliqués
+  - La distribution par fréquence n'est pas absolument fiable
+
+- **Recommandations** :
+  - Utiliser les fréquences comme **indicateur relatif** uniquement
+  - Ne pas interpréter les chiffres absolus comme définitifs
+  - Privilégier l'analyse qualitative des entités extraites
+  - Si critique : effectuer une déduplication manuelle du corpus avant analyse
+
+Cette limitation n'affecte **PAS** la qualité de l'extraction NER elle-même, mais uniquement les statistiques de fréquence.
+
 ## Différences avec ORGANIZATION
 
 | Aspect | ORGANIZATION | PERSON |
