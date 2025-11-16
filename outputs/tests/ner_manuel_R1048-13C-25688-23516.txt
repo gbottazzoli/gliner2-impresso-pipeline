@@ -1,0 +1,149 @@
+# NER MANUEL - Dossier R1048-13C-25688-23516 (5 premiers documents)
+# Fait par Claude Code - 2025-11-16
+
+## Document 1 (R1048-13C-25688-23516_doc01.md)
+
+### Personnes:
+- Dr. Nitobe (apparaît 3x dans la table)
+- M. Halecky
+
+### Organisations:
+- SOCIÉTÉ DES NATIONS
+- LEAGUE OF NATIONS
+- INTERNATIONAL BUREAUX
+- INTELLECTUAL CO-OPERATION
+- REGISTRY
+- Drafty Committee
+- C.I.C. (Communication to the C.R. & C. Committee)
+- C.R. & C. Committee
+- Distribution Branch
+- International Bureau
+- Interim Bureau
+- Registries & Records
+
+### Lieux:
+- (aucun lieu explicite)
+
+---
+
+## Document 2 (R1048-13C-25688-23516_doc02.md)
+
+### Personnes:
+- W.v.S. (signature - Membre de la Section)
+- Mademoiselle O. Piau
+- M. le Président du Groupe espérantiste français de Beauvais
+
+### Organisations:
+- Société française pour la Propagation de l'Esperanto (Groupe de Beauvais)
+- Groupe espérantiste français de Beauvais
+- Section des Bureaux Internationaux
+- Institut international d'O.S.T.
+
+### Lieux:
+- GENÈVE
+- Genève
+- route de Lausanne
+
+---
+
+## Document 3 (R1048-13C-25688-23516_doc03.md)
+
+### Personnes:
+- PIAU (signature)
+- Mlle Odette PIAU
+- Monsieur le Secrétaire général
+- M. L. DEMARCY (Président-fondateur, Licencié en Droit)
+- L. Demarcy (signature)
+
+### Organisations:
+- Institut international d'O.S.T.
+- Société des Nations
+- REGISTRY
+- Société Française pour la Propagation de l'ESPERANTO
+- GROUPE DE BEAUVAIS (OISE)
+
+### Lieux:
+- Genève (2x)
+- GENÈVE
+- route de Lausanne
+- BEAUVAIS
+- Beauvais
+- OISE
+- Rue Saint-Curé
+- rue Robert
+- Suisse
+
+---
+
+## Document 4 (R1048-13C-25688-23516_doc04.md)
+
+### Personnes:
+- (aucune personne nommée explicitement)
+
+### Organisations:
+- Groupe Espérantiste Français de Beauvais (Oise)
+- Société des Nations
+
+### Lieux:
+- Beauvais
+- Oise
+
+---
+
+## Document 5 (R1048-13C-25688-23516_doc05.md)
+
+### Personnes:
+- Le Président (signature générique - pas de nom propre)
+
+### Organisations:
+- Société des Nations
+- Ecoles Militaires (terme générique)
+
+### Lieux:
+- (aucun lieu explicite)
+
+---
+
+## RÉSUMÉ TOTAL (5 documents)
+
+### PERSONNES (7 noms propres uniques):
+1. Dr. Nitobe
+2. M. Halecky
+3. W.v.S.
+4. Mademoiselle O. Piau / Mlle Odette PIAU (même personne)
+5. M. L. DEMARCY / L. Demarcy (même personne)
+
+Notes:
+- "M. le Président du Groupe espérantiste français de Beauvais" est un titre générique
+- "Monsieur le Secrétaire général" est un titre générique
+- "Le Président" (doc05) est un titre générique
+
+### ORGANISATIONS (≈15 uniques principales):
+1. SOCIÉTÉ DES NATIONS / Société des Nations (variantes)
+2. LEAGUE OF NATIONS
+3. INTERNATIONAL BUREAUX
+4. INTELLECTUAL CO-OPERATION
+5. REGISTRY
+6. Section des Bureaux Internationaux
+7. Institut international d'O.S.T.
+8. Société française pour la Propagation de l'Esperanto / Société Française pour la Propagation de l'ESPERANTO
+9. Groupe espérantiste français de Beauvais / Groupe Espérantiste Français de Beauvais / GROUPE DE BEAUVAIS
+10. Drafty Committee
+11. C.I.C.
+12. C.R. & C. Committee
+13. Distribution Branch
+14. International Bureau
+15. Interim Bureau
+16. Registries & Records
+17. Ecoles Militaires (générique)
+
+### LIEUX (6 villes/régions uniques):
+1. GENÈVE / Genève (même ville, variantes)
+2. BEAUVAIS / Beauvais (même ville, variantes)
+3. OISE / Oise (département)
+4. Suisse
+5. route de Lausanne (adresse)
+6. Rue Saint-Curé (adresse)
+7. rue Robert (adresse)
+
+Note: Si on ne compte que les villes/régions principales: Genève, Beauvais, Oise, Suisse = 4 lieux

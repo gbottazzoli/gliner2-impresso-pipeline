@@ -1,0 +1,60 @@
+name: test-gliner2
+channels:
+  - pytorch
+  - nvidia  # Nécessaire pour pytorch-cuda
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python
+  - python=3.10
+
+  # Deep Learning (avec support CUDA pour GPU NVIDIA RTX 4060)
+  - pytorch>=2.0
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1  # Compatible avec CUDA 13.0 (votre driver)
+
+  # NLP Core
+  - transformers>=4.30
+  - tokenizers
+  - sentencepiece
+
+  # Data Science
+  - pandas>=2.0
+  - numpy>=1.24
+  - scikit-learn
+
+  # Network Analysis
+  - networkx>=3.0
+  - python-louvain
+
+  # Visualization
+  - matplotlib>=3.7
+  - seaborn>=0.12
+  - plotly>=5.14
+
+  # Jupyter
+  - jupyter
+  - ipykernel
+  - ipywidgets
+
+  # Development
+  - pytest>=7.0
+  - black
+  - flake8
+  - isort
+
+  # Utilities
+  - tqdm
+  - pyyaml
+  - click
+
+  # pip dependencies
+  - pip
+  - pip:
+    - gliner>=0.1.0  # GLiNER2 pour zeroshot NER
+    - pyvis>=0.3.2   # Visualisation de réseaux interactifs
+    - spacy>=3.5     # Optionnel: traitement NLP avancé
+    # - prodigy      # OPTIONNEL: annotation (nécessite licence commerciale)
+                     # Installez manuellement si vous avez une licence: pip install prodigy -f https://...

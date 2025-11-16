@@ -1,78 +1,88 @@
 #!/bin/bash
-# Ce script met en place un environnement Python reproductible pour un projet de recherche.
+# test-gliner2 - Script d'initialisation de l'environnement conda
+# NER Zeroshot avec GLiNER2 sur Corpus SDN-Esperanto
 
 set -e # Arrête le script si une commande échoue
 
 # --- Configuration ---
-PYTHON_VERSION="3.10"
-VENV_DIR=".venv"
-REQUIREMENTS_FILE="requirements.txt"
+PROJECT_NAME="test-gliner2"
+ENV_FILE="environment.yml"
+CONDA_ENV_NAME="test-gliner2"
 
-echo "--- Initialisation de l'environnement de recherche ---"
-
-# --- Étape 1: Vérifier et configurer la version de Python ---
-# Utilise pyenv si disponible pour garantir une version stable.
-if command -v pyenv &> /dev/null; then
-    echo "Pyenv détecté. Tentative de définir la version Python locale à ${PYTHON_VERSION}..."
-    if ! pyenv local ${PYTHON_VERSION}; then
-        echo "Version ${PYTHON_VERSION} non installée avec pyenv. Veuillez l'installer avec 'pyenv install ${PYTHON_VERSION}'."
-        exit 1
-    fi
-    echo "Version Python locale définie sur $(python --version)."
-else
-    echo "Pyenv non trouvé. Utilisation de la version Python système. Assurez-vous qu'elle est compatible."
-    # Vous pourriez ajouter un contrôle de version plus strict ici si nécessaire.
-fi
-
-# --- Étape 2: Créer l'environnement virtuel ---
-if [ ! -d "$VENV_DIR" ]; then
-    echo "Création de l'environnement virtuel dans '${VENV_DIR}'..."
-    python -m venv $VENV_DIR
-else
-    echo "Environnement virtuel '${VENV_DIR}' déjà existant."
-fi
-
-# --- Étape 3: Activer l'environnement virtuel ---
-source ${VENV_DIR}/bin/activate
-echo "Environnement virtuel activé."
-
-# --- Étape 4: Gérer le fichier de dépendances ---
-if [ ! -f "$REQUIREMENTS_FILE" ]; then
-    echo "Fichier '${REQUIREMENTS_FILE}' non trouvé. Création d'un fichier de base..."
-    cat <<EOF > $REQUIREMENTS_FILE
-# Dépendances de base pour les projets en Humanités Numériques (NER, OCR, Data Science)
-# Utilisez 'pip freeze > requirements.txt' pour mettre à jour ce fichier avec les versions exactes.
-
-# Data Manipulation
-pandas
-
-# NLP
-spacy
-# Pour le français : python -m spacy download fr_core_news_sm
-
-# OCR
-pytesseract
-Pillow
-
-# Outils de développement
-pylint
-pytest
-EOF
-fi
-
-# --- Étape 5: Installer les dépendances ---
-echo "Installation/Mise à jour des dépendances depuis '${REQUIREMENTS_FILE}'..."
-pip install -r $REQUIREMENTS_FILE
-
-# --- Étape 6: Vérifier les mises à jour disponibles ---
-echo "Vérification des paquets obsolètes (sans les mettre à jour)..."
-if pip list --outdated; then
-    echo "Certains paquets peuvent être mis à jour. Analysez la liste ci-dessus avant de mettre à jour manuellement."
-else
-    echo "Toutes les dépendances sont à jour."
-fi
-
-# --- Fin ---
+echo "=========================================="
+echo "  Initialisation test-gliner2"
+echo "  NER Zeroshot GLiNER2 - Corpus Esperanto"
+echo "=========================================="
 echo ""
-echo "✅ Environnement prêt à l'emploi."
-echo "Pour l'activer dans une nouvelle session, exécutez : source ${VENV_DIR}/bin/activate"
+
+# --- Étape 1: Vérifier que conda est installé ---
+if ! command -v conda &> /dev/null; then
+    echo "❌ ERREUR: conda n'est pas installé ou n'est pas dans PATH."
+    echo ""
+    echo "Veuillez installer Anaconda ou Miniconda:"
+    echo "  - Anaconda: https://www.anaconda.com/download"
+    echo "  - Miniconda: https://docs.conda.io/en/latest/miniconda.html"
+    echo ""
+    exit 1
+fi
+
+echo "✅ Conda détecté: $(conda --version)"
+echo ""
+
+# --- Étape 2: Vérifier que environment.yml existe ---
+if [ ! -f "$ENV_FILE" ]; then
+    echo "❌ ERREUR: Fichier '$ENV_FILE' introuvable."
+    echo "   Assurez-vous d'être dans le répertoire racine du projet."
+    exit 1
+fi
+
+echo "✅ Fichier $ENV_FILE trouvé"
+echo ""
+
+# --- Étape 3: Créer l'environnement conda ---
+echo "📦 Création de l'environnement conda '$CONDA_ENV_NAME'..."
+echo "   (Cela peut prendre plusieurs minutes...)"
+echo ""
+
+if conda env list | grep -q "^${CONDA_ENV_NAME} "; then
+    echo "⚠️  L'environnement '$CONDA_ENV_NAME' existe déjà."
+    read -p "   Voulez-vous le recréer ? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "🗑️  Suppression de l'environnement existant..."
+        conda env remove -n $CONDA_ENV_NAME -y
+        echo "📦 Création du nouvel environnement..."
+        conda env create -f $ENV_FILE
+    else
+        echo "⏭️  Mise à jour de l'environnement existant..."
+        conda env update -f $ENV_FILE --prune
+    fi
+else
+    conda env create -f $ENV_FILE
+fi
+
+echo ""
+echo "✅ Environnement conda créé avec succès"
+echo ""
+
+# --- Étape 4: Instructions pour activation ---
+echo "=========================================="
+echo "  Prochaines étapes"
+echo "=========================================="
+echo ""
+echo "1. Activez l'environnement:"
+echo "   conda activate $CONDA_ENV_NAME"
+echo ""
+echo "2. Téléchargez le modèle GLiNER2:"
+echo "   ./scripts/download_models.sh"
+echo ""
+echo "3. Placez vos données dans:"
+echo "   data/raw/"
+echo ""
+echo "4. Consultez la documentation:"
+echo "   cat README.md"
+echo "   cat docs/AGENTS_GUIDE.md"
+echo ""
+echo "=========================================="
+echo "✅ Setup complet! Bon travail de recherche!"
+echo "=========================================="

@@ -1,0 +1,195 @@
+================================================================================
+TRAVAUX REALISES - SYSTEME NER COMPLET
+Date: 2025-11-16
+================================================================================
+
+RESUME:
+Mise en place complete d'un systeme NER avec GLiNER, gold standard et evaluation
+
+================================================================================
+1. COMPLETION DU GOLD STANDARD
+================================================================================
+
+DOSSIER ANNOTE: R1048-13C-23516-23516 (5 premiers documents)
+- doc01: 11 entites (1 PERSON, 9 ORGANIZATION, 1 LOCATION)  
+- doc02: 6 entites (1 PERSON, 3 ORGANIZATION, 2 LOCATION)
+- doc03: 30 entites (5 PERSON, 10 ORGANIZATION, 15 LOCATION)
+- doc04: 7 entites (1 PERSON, 4 ORGANIZATION, 2 LOCATION)
+- doc05: 6 entites (1 PERSON, 4 ORGANIZATION, 1 LOCATION)
+
+TOTAL AJOUTE: 60 annotations
+
+STATISTIQUES GOLD STANDARD COMPLET:
+- Total dossiers: 9 (20% du corpus)
+- Total documents: 45
+- Total annotations: 413
+  * PERSON: 119
+  * ORGANIZATION: 184
+  * LOCATION: 105
+
+FICHIER: data/gold_standard_annotations.txt
+
+================================================================================
+2. SCRIPT D'EVALUATION COMPLET
+================================================================================
+
+FICHIER CREE: scripts/evaluate_ner.py
+
+FONCTIONNALITES:
+- Charge gold standard depuis fichier texte
+- Charge predictions GLiNER depuis Excel (3 sheets)
+- Calcule Precision, Rappel, F1 par type d'entite
+- Calcule micro-average et macro-average
+- Genere rapport detaille avec listes des faux positifs/negatifs
+- Sauvegarde rapport dans fichier texte
+
+USAGE:
+  python scripts/evaluate_ner.py \
+    --gold data/gold_standard_annotations.txt \
+    --predictions outputs/ner_results.xlsx \
+    --output outputs/evaluation_report.txt
+
+================================================================================
+3. SCRIPT PRINCIPAL DE PRODUCTION
+================================================================================
+
+FICHIER CREE: scripts/run_ner_pipeline.py
+
+FONCTIONNALITES:
+- Charge modele GLiNER v2.1
+- Extrait entites NER sur tout le corpus ou dossiers specifiques
+- Genere fichier Excel avec 3 sheets (PERSON, ORGANIZATION, GPE)
+- Lance evaluation automatique sur gold standard
+- Affiche metriques finales
+
+OPTIONS DISPONIBLES:
+  # Extraction complete avec evaluation
+  python scripts/run_ner_pipeline.py
+  
+  # Gold standard uniquement  
+  python scripts/run_ner_pipeline.py --gold-only
+  
+  # Dossier specifique
+  python scripts/run_ner_pipeline.py --folder R1048-13C-23516-23516
+  
+  # Sans evaluation
+  python scripts/run_ner_pipeline.py --no-eval
+
+================================================================================
+4. DOCUMENTATION UTILISATEUR
+================================================================================
+
+FICHIER CREE: docs/USER_GUIDE.md
+
+CONTENU:
+- Vue d'ensemble du projet
+- Instructions d'installation
+- Usage basique (commandes principales)
+- Explication des metriques (Precision, Rappel, F1)
+- Structure des outputs (Excel, rapport)
+- Configuration avancee (ajuster seuils)
+- Depannage
+- FAQ
+
+================================================================================
+5. TESTS EXECUTES
+================================================================================
+
+TEST: Pipeline complet sur gold standard
+
+COMMANDE:
+  python scripts/run_ner_pipeline.py --gold-only
+
+RESULTATS EXTRACTION:
+- Dossiers traites: 9
+- Total fichiers: 182
+- Entites extraites: 1,460
+  * PERSON: 440 (score moyen: 0.851)
+  * ORGANIZATION: 566 (score moyen: 0.843)
+  * GPE: 454 (score moyen: 0.830)
+- Temps execution: ~5 minutes
+
+RESULTATS EVALUATION:
+
+Type             Precision     Recall         F1     TP     FP     FN
+------------------------------------------------------------------------
+PERSON               0.136      0.504      0.215     60    380     59
+ORGANIZATION         0.131      0.402      0.197     74    492    110
+LOCATION             0.159      0.686      0.258     72    382     33
+------------------------------------------------------------------------
+MICRO-AVG            0.141      0.505      0.221    206   1254    202
+MACRO-AVG            0.142      0.531      0.223
+
+INTERPRETATION:
+- Rappel correct (50%): La moitie des entites sont detectees
+- Precision faible (14%): Beaucoup de faux positifs
+- F1 global: 0.22 (baseline acceptable pour premier test)
+
+CAUSES PRINCIPALES DES ERREURS:
+1. Variations de noms ("M. Bergson" vs "Monsieur Bergson")
+2. Titres generiques detectes comme personnes ("Le President")
+3. Gold standard incomplet (certaines entites valides non annotees)
+4. Scores de confiance trop bas pour certaines entites reelles
+
+================================================================================
+6. FICHIERS GENERES
+================================================================================
+
+SCRIPTS:
+- scripts/run_ner_pipeline.py (Pipeline principal)
+- scripts/evaluate_ner.py (Evaluation)
+
+DOCUMENTATION:
+- docs/USER_GUIDE.md (Guide utilisateur complet)
+- outputs/RAPPORT_FINAL.md (Rapport detaille des travaux)
+- README_NER.md (Guide rapide)
+
+SORTIES:
+- outputs/ner_results_20251116_151224.xlsx (Excel avec 3 sheets)
+- outputs/evaluation_report_fixed.txt (Metriques detaillees)
+
+DONNEES:
+- data/gold_standard_annotations.txt (413 annotations completes)
+
+================================================================================
+7. QUICK START POUR L'UTILISATEUR
+================================================================================
+
+1. LANCER LE PIPELINE:
+   cd /home/steeven/PycharmProjects/gliner2Tests/research-project-template
+   python scripts/run_ner_pipeline.py --gold-only
+
+2. CONSULTER LES RESULTATS:
+   libreoffice outputs/ner_results_20251116_151224.xlsx
+   cat outputs/evaluation_report_fixed.txt
+
+3. LIRE LA DOCUMENTATION:
+   cat docs/USER_GUIDE.md
+   cat outputs/RAPPORT_FINAL.md
+
+================================================================================
+8. AMELIORATIONS RECOMMANDEES
+================================================================================
+
+COURT TERME:
+1. Post-traitement pour deduplication des variations de noms
+2. Filtrage des titres generiques ("Le President" seul)
+3. Ajustement des seuils de confiance
+
+MOYEN TERME:
+1. Enrichir le gold standard (100+ documents)
+2. Fine-tuning de GLiNER sur le corpus
+3. Interface de validation manuelle
+
+LONG TERME:
+1. Extraction de relations entre entites
+2. Construction de graphe de connaissances
+3. Analyse temporelle et reseau
+
+================================================================================
+FIN DU DOCUMENT
+================================================================================
+
+Pour plus d'informations, consulter:
+- docs/USER_GUIDE.md (guide complet)
+- outputs/RAPPORT_FINAL.md (rapport detaille)

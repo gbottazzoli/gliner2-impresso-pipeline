@@ -1,35 +1,132 @@
-# Ce fichier sera copié dans vos projets
-# Adaptez selon vos besoins
+# test-gliner2 - GLiNER2 NER Zeroshot sur Corpus SDN-Esperanto
+# Adapté pour projet de recherche en Humanités Numériques
 
-# Python
+# ============================================================
+# DONNÉES ET MODÈLES VOLUMINEUX (NE PAS VERSIONNER)
+# ============================================================
+
+# Données brutes et traitées
+data/raw/*
+data/processed/*
+data/annotated/*
+data/network/*
+
+# EXCEPTION: Garder les README et gold standard dans data/
+!data/*/README.md
+!data/README.md
+!data/gold_standard_annotations.txt
+!data/gold_standard_config.txt
+
+# Modèles téléchargés (GLiNER2, etc.)
+models/checkpoints/*
+!models/checkpoints/README.md
+!models/checkpoints/.gitkeep
+
+# Outputs volumineux
+outputs/ner_results/*
+outputs/networks/*
+outputs/visualizations/*.png
+outputs/visualizations/*.svg
+outputs/visualizations/*.pdf
+!outputs/*/README.md
+
+# EXCEPTION: Garder rapports d'évaluation et documentation
+!outputs/RAPPORT_FINAL.md
+!outputs/evaluation_report*.txt
+
+# ============================================================
+# PYTHON
+# ============================================================
+
+# Bytecode
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+
+# Environnements virtuels
 venv/
 env/
 ENV/
+.venv/
+.conda/
 
-# Jupyter
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ============================================================
+# JUPYTER
+# ============================================================
+
 .ipynb_checkpoints/
+*.ipynb_checkpoints
 
-# IDE
-.idea/
-.vscode/
-*.swp
+# Jupyter Notebook config
+.jupyter/
 
-# OS
-.DS_Store
+# ============================================================
+# TESTS ET QUALITÉ
+# ============================================================
 
-# Données (décommenter selon besoin)
-# data/raw/
-# data/processed/
-# results/
-
-# Logs
-*.log
-
-# Tests
 .pytest_cache/
 .coverage
+htmlcov/
+.tox/
+.hypothesis/
+*.cover
+
+# ============================================================
+# IDE
+# ============================================================
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ============================================================
+# OS
+# ============================================================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================================
+# LOGS ET TEMPORAIRES
+# ============================================================
+
+*.log
+logs/
+*.tmp
+*.temp
+
+# ============================================================
+# FICHIERS TEMPLATE (À SUPPRIMER APRÈS SETUP)
+# ============================================================
+
+QUICK_PROMPT.md
+COPIER_NOUVEAU_PROJET.txt
+PROMPTS_INDEX.md
+START_HERE.md
