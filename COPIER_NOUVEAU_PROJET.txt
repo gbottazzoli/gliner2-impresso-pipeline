@@ -1,0 +1,124 @@
+# Fichiers à copier pour démarrer un nouveau projet
+
+## MÉTHODE 1: Copie manuelle
+
+Copiez ces fichiers dans votre nouveau projet:
+
+PROMPTS:
+  ✅ QUICK_PROMPT.md
+  ✅ PROMPT_TEMPLATE.md
+  ✅ USING_PROMPTS.md
+  ✅ PROMPTS_INDEX.md
+  ✅ README_PROMPTS.md
+
+AGENTS (tout le dossier):
+  ✅ .claude/agents/
+     - architecte_projet.md
+     - doc_technique.md
+     - gardien_projet.md
+     - gestionnaire_contexte.md
+     - gestionnaire_environnement.md
+     - git_helper.md
+     - historien_computationnel.md
+     - nettoyeur_projet.md
+     - testeur_code.md
+     - validateur_donnees.md
+     - visualiseur_donnees.md
+
+SCRIPT:
+  ✅ init_project.sh
+
+TOTAL: 17 fichiers
+
+═══════════════════════════════════════════════════════════════
+
+## MÉTHODE 2: Script de copie automatique
+
+Créer un script copy_to_new_project.sh:
+
+```bash
+#!/bin/bash
+# Usage: ./copy_to_new_project.sh /chemin/vers/nouveau/projet
+
+DEST=$1
+
+if [ -z "$DEST" ]; then
+    echo "Usage: $0 /chemin/vers/nouveau/projet"
+    exit 1
+fi
+
+echo "Copie des fichiers de template vers: $DEST"
+
+# Créer le dossier si nécessaire
+mkdir -p "$DEST"
+mkdir -p "$DEST/.claude/agents"
+
+# Copier les prompts
+cp QUICK_PROMPT.md "$DEST/"
+cp PROMPT_TEMPLATE.md "$DEST/"
+cp USING_PROMPTS.md "$DEST/"
+cp PROMPTS_INDEX.md "$DEST/"
+cp README_PROMPTS.md "$DEST/"
+
+# Copier les agents
+cp .claude/agents/*.md "$DEST/.claude/agents/"
+
+# Copier le script
+cp init_project.sh "$DEST/"
+
+echo "✅ Terminé! 17 fichiers copiés."
+echo ""
+echo "Prochaines étapes:"
+echo "1. cd $DEST"
+echo "2. cat README_PROMPTS.md"
+echo "3. Ouvrir QUICK_PROMPT.md ou PROMPT_TEMPLATE.md"
+echo "4. Copier dans Claude Code"
+```
+
+═══════════════════════════════════════════════════════════════
+
+## MÉTHODE 3: Template Git (Recommandé)
+
+Créer un dépôt template:
+
+1. Créer un nouveau repo: research-project-template
+2. Y copier les 17 fichiers
+3. Pour chaque nouveau projet:
+   git clone https://github.com/votre-user/research-project-template mon-nouveau-projet
+   cd mon-nouveau-projet
+   rm -rf .git
+   cat README_PROMPTS.md
+
+═══════════════════════════════════════════════════════════════
+
+## UTILISATION
+
+Une fois les fichiers copiés dans votre nouveau projet:
+
+1. Lire README_PROMPTS.md
+2. Choisir QUICK_PROMPT.md (rapide) ou PROMPT_TEMPLATE.md (complet)
+3. Copier TOUT le prompt dans Claude Code
+4. Remplir les informations sur votre projet
+5. Claude crée automatiquement:
+   - Structure de dossiers
+   - Documentation
+   - Configuration
+   - Agents configurés
+
+6. Commencer à travailler immédiatement!
+
+═══════════════════════════════════════════════════════════════
+
+NE PAS COPIER (fichiers spécifiques au projet OCR):
+
+  ❌ README.md (créer le vôtre)
+  ❌ QUICKSTART.md
+  ❌ GITHUB_SETUP.md
+  ❌ docs/
+  ❌ bin/
+  ❌ src/
+  ❌ data/
+  ❌ logs/
+  ❌ requirements.txt (sera généré)
+
+Claude créera tous ces fichiers adaptés à VOTRE projet!

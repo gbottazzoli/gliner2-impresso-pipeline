@@ -1,0 +1,35 @@
+# Ce fichier sera copié dans vos projets
+# Adaptez selon vos besoins
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+
+# Données (décommenter selon besoin)
+# data/raw/
+# data/processed/
+# results/
+
+# Logs
+*.log
+
+# Tests
+.pytest_cache/
+.coverage
