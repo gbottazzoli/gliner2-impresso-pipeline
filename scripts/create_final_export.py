@@ -251,18 +251,15 @@ def construire_export(df_persons, df_wikidata, df_presse):
                 newspaper = article['newspaper_id'] if pd.notna(article['newspaper_id']) else ""
                 url = article['article_url'] if pd.notna(article['article_url']) else ""
 
-                # Échapper les guillemets dans le titre pour la formule Excel
-                title_escaped = title.replace('"', '""')
-
-                # Format avec HYPERLINK si URL disponible
-                if url:
-                    # Formule Excel: =HYPERLINK("url", "texte")
-                    title_with_link = f'=HYPERLINK("{url}","{title_escaped}")'
+                # Format avec HYPERLINK sur l'article_id
+                if url and article_id:
+                    # Formule Excel: =HYPERLINK("url", "article_id")
+                    article_id_with_link = f'=HYPERLINK("{url}","{article_id}")'
                 else:
-                    title_with_link = title
+                    article_id_with_link = article_id
 
-                # Format: article_id | HYPERLINK | date | newspaper
-                entry = f"{article_id} | {title_with_link} | {date} | {newspaper}"
+                # Format: HYPERLINK(article_id) | titre | date | newspaper
+                entry = f"{article_id_with_link} | {title} | {date} | {newspaper}"
                 presse_entries.append(entry)
 
             presse_str = '; '.join(presse_entries)
