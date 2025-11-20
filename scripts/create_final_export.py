@@ -242,7 +242,7 @@ def construire_export(df_persons, df_wikidata, df_presse):
         articles_personne = df_presse[df_presse['person_entity'] == identifiant]
 
         if not articles_personne.empty:
-            # Format avec formule Excel HYPERLINK
+            # Format avec URL entre parenthèses (lisible et cliquable dans beaucoup de logiciels)
             presse_entries = []
             for _, article in articles_personne.iterrows():
                 article_id = article['article_id'] if pd.notna(article['article_id']) else ""
@@ -251,15 +251,11 @@ def construire_export(df_persons, df_wikidata, df_presse):
                 newspaper = article['newspaper_id'] if pd.notna(article['newspaper_id']) else ""
                 url = article['article_url'] if pd.notna(article['article_url']) else ""
 
-                # Format avec HYPERLINK sur l'article_id
-                if url and article_id:
-                    # Formule Excel: =HYPERLINK("url", "article_id")
-                    article_id_with_link = f'=HYPERLINK("{url}","{article_id}")'
+                # Format: article_id (url) | titre | date | newspaper
+                if url:
+                    entry = f"{article_id} ({url}) | {title} | {date} | {newspaper}"
                 else:
-                    article_id_with_link = article_id
-
-                # Format: HYPERLINK(article_id) | titre | date | newspaper
-                entry = f"{article_id_with_link} | {title} | {date} | {newspaper}"
+                    entry = f"{article_id} | {title} | {date} | {newspaper}"
                 presse_entries.append(entry)
 
             presse_str = '; '.join(presse_entries)
@@ -352,14 +348,6 @@ def main():
     workbook = writer.book
     worksheet = writer.sheets['Personnes']
 
-    # Format pour les hyperliens (bleu souligné)
-    link_format = workbook.add_format({
-        'font_color': 'blue',
-        'underline': 1,
-        'text_wrap': True,
-        'valign': 'top'
-    })
-
     # Format général avec retour à la ligne automatique
     wrap_format = workbook.add_format({
         'text_wrap': True,
@@ -369,22 +357,18 @@ def main():
     # Trouver la colonne Presse
     col_presse = df_export.columns.get_loc('Presse')
 
-    # Ajuster la largeur des colonnes
+    # Ajuster la largeur des colonnes avec format wrap pour colonnes longues
     worksheet.set_column(0, 0, 15)  # Nom
     worksheet.set_column(1, 1, 15)  # Prénom
     worksheet.set_column(2, 2, 25)  # Identifiant
-    worksheet.set_column(3, 3, 40)  # Variantes
-    worksheet.set_column(4, 4, 50)  # Description
-    worksheet.set_column(5, 5, 40)  # Archives
-    worksheet.set_column(6, 6, 30)  # Documents officiels
-    worksheet.set_column(col_presse, col_presse, 80)  # Presse (large)
+    worksheet.set_column(3, 3, 40, wrap_format)  # Variantes
+    worksheet.set_column(4, 4, 50, wrap_format)  # Description
+    worksheet.set_column(5, 5, 40, wrap_format)  # Archives
+    worksheet.set_column(6, 6, 30, wrap_format)  # Documents officiels
+    worksheet.set_column(col_presse, col_presse, 100, wrap_format)  # Presse (très large)
     worksheet.set_column(8, 8, 20)  # Nationalité
     worksheet.set_column(9, 9, 10)  # Genre
     worksheet.set_column(10, 10, 20)  # Catégorie
-
-    # Appliquer le format avec retour à la ligne pour la colonne Presse
-    for row_idx in range(len(df_export)):
-        worksheet.write(row_idx + 1, col_presse, df_export.iloc[row_idx]['Presse'], wrap_format)
 
     # Fermer le writer
     writer.close()
