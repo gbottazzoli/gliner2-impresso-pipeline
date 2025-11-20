@@ -56,5 +56,8 @@ dependencies:
     - gliner>=0.1.0  # GLiNER2 pour zeroshot NER
     - pyvis>=0.3.2   # Visualisation de réseaux interactifs
     - spacy>=3.5     # Optionnel: traitement NLP avancé
+    - impresso       # Impresso Python Library pour recherche archives presse
+    - requests>=2.31.0  # HTTP client pour API Wikidata
+    - python-dotenv>=1.0.0  # Gestion variables d'environnement
     # - prodigy      # OPTIONNEL: annotation (nécessite licence commerciale)
                      # Installez manuellement si vous avez une licence: pip install prodigy -f https://...

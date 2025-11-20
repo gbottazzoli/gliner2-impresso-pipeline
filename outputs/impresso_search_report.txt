@@ -1,0 +1,55 @@
+================================================================================
+RAPPORT DE RECHERCHE IMPRESSO
+3ème Assemblée de la Société des Nations (Août-Octobre 1922)
+================================================================================
+
+Date de recherche: 2025-11-20 19:00:13
+Période couverte: 1922-08-01 à 1922-10-31
+Durée du traitement: 4.7 minutes
+
+================================================================================
+STATISTIQUES GÉNÉRALES
+================================================================================
+Personnes recherchées: 40
+Total d'alias recherchés: 219
+Résultats détaillés (avec doublons): 339
+Résultats uniques (dédupliqués): 311
+
+================================================================================
+RÉPARTITION PAR LANGUE D'ARTICLE
+================================================================================
+  fr: 276 articles (88.7%)
+  de: 35 articles (11.3%)
+
+================================================================================
+TOP 10 JOURNAUX
+================================================================================
+  JDG: 73 articles
+  legaulois: 34 articles
+  GDL: 30 articles
+  indeplux: 27 articles
+  NZZ: 25 articles
+  lematin: 22 articles
+  EXP: 22 articles
+  oeuvre: 21 articles
+  lepetitparisien: 12 articles
+  IMP: 9 articles
+
+================================================================================
+TOP 15 PERSONNES LES PLUS MENTIONNÉES
+================================================================================
+  Robert Cecil (Q12702): 105 articles
+  Henri Bergson (Q42156): 62 articles
+  Gilbert Murray (Q538478): 28 articles
+  Eric Drummond (Q335120): 23 articles
+  De Brouckere (?): 20 articles
+  Nitobe Inazō (Q12696): 15 articles
+  Georges Reynald (Q3103403): 13 articles
+  Edmond Privat (Q12571): 12 articles
+  Gonzague de Reynold (Q116750): 8 articles
+  Giuseppe Peano (Q191029): 5 articles
+  Hippolyte Sebert (Q287244): 5 articles
+  L. L. Zamenhof (Q11758): 4 articles
+  Mlle Bonnevie (?): 4 articles
+  Todoroff (?): 3 articles
+  Willo Forchhammer (?): 2 articles
