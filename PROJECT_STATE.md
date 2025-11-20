@@ -1,8 +1,37 @@
 # État du Projet - NER GLiNER2 sur Corpus SDN-Esperanto
 
-**Session**: #8 - 2025-11-20 (Impresso Integration - 3ème Assemblée SDN)
-**Dernière mise à jour**: 2025-11-20 19:00 CET
-**Statut**: PRODUCTION COMPLETE - ENRICHISSEMENT FINALISÉ - IMPRESSO INTEGRATION COMPLETE ✅
+**Session**: #8 - 2025-11-20 (Clôture du projet)
+**Dernière mise à jour**: 2025-11-20 21:30 CET
+**Statut**: 🏁 PROJET CLÔTURÉ - TOUS LES OBJECTIFS ATTEINTS ✅
+
+---
+
+## 🎯 CLÔTURE DU PROJET
+
+**Date de clôture**: 2025-11-20
+**Statut final**: Tous les objectifs atteints avec succès
+
+### Livrables Finaux
+
+1. ✅ **Pipeline NER complet** - 832 acteurs extraits et enrichis
+2. ✅ **Gold standard** - 413 annotations manuelles pour évaluation
+3. ✅ **Enrichissement Wikidata** - 832 personnes enrichies (Description, Nationalité, Genre, Catégorie)
+4. ✅ **Intégration Impresso** - 311 articles presse historiques (40 acteurs SDN, août-oct 1922)
+5. ✅ **Export prosopographique final** - 40 personnes format modèle avec URLs cliquables
+6. ✅ **Documentation complète** - README_NER.md, README_IMPRESSO.md, USER_GUIDE.md, RAPPORT_FINAL.md
+7. ✅ **Tests unitaires** - Couverture complète du pipeline NER
+8. ✅ **Environnement reproductible** - environment.yml avec toutes dépendances
+
+### Fichiers Clés Produits
+
+- `outputs/person_FINAL_CLEAN.xlsx` - 832 acteurs enrichis
+- `outputs/export_final_40_personnes.xlsx` - Export prosopographique 40 personnes
+- `outputs/impresso_resultats_dedupliques.xlsx` - 311 articles presse
+- `outputs/impresso_selection_60_articles.xlsx` - Sélection intelligente 53 articles
+- `outputs/gold_standard_ner.xlsx` - 413 annotations gold standard
+- `scripts/run_ner_pipeline.py` - Pipeline production
+- `scripts/evaluate_ner.py` - Évaluation automatique
+- `scripts/create_final_export.py` - Export prosopographique
 
 ---
 

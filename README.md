@@ -1,194 +1,216 @@
-# 🔬 test-gliner2
+# GLiNER2 + Impresso Pipeline - Corpus SDN-Esperanto
 
-**NER Zeroshot avec GLiNER2 sur Corpus Société des Nations - Esperanto**
-
-Projet de recherche en Humanités Numériques visant à extraire des entités nommées (NER) d'un corpus historique en Esperanto issu de la Société des Nations, pour analyse de réseau.
+🏁 **PROJET CLÔTURÉ** - 2025-11-20 - Tous les objectifs atteints ✅
 
 ---
 
-## 📋 Description
+## Vue d'Ensemble
 
-Ce projet utilise **GLiNER2**, un modèle de NER zeroshot, pour identifier automatiquement des entités (personnes, organisations, lieux, etc.) dans des textes en Esperanto de la Société des Nations. Les entités extraites seront ensuite utilisées pour construire et analyser un réseau de relations.
+Pipeline complet de **Named Entity Recognition (NER)** zeroshot utilisant **GLiNER v2.1** sur un corpus historique de la **Société des Nations (SDN)** en Esperanto, avec enrichissement contextuel Wikidata et intégration des archives presse historiques **Impresso**.
 
-**Objectifs** :
-- Nettoyer et normaliser le corpus textuel
-- Extraire les entités nommées avec GLiNER2 (zeroshot)
-- Construire un graphe de relations entre entités
-- Analyser le réseau (centralité, communautés, etc.)
-- Produire des visualisations et un dataset annoté
+**Période couverte**: 3ème Assemblée de la SDN (août-octobre 1922)
 
 ---
 
-## 🚀 Démarrage Rapide
+## 🎯 Résultats Finaux
 
-### 1. Initialiser l'environnement
+### Extraction NER
+- **832 acteurs** extraits et enrichis (PERSON)
+- **600 organisations** identifiées (ORGANIZATION)
+- **183 lieux** géolocalisés (GPE)
+- **666 documents** traités (43 dossiers)
+- **Gold standard**: 413 annotations manuelles
 
-```bash
-# Créer l'environnement conda
-./init_project.sh
+### Enrichissement Contextuel
+- **832 personnes enrichies** avec métadonnées Wikidata
+- **Attributs**: Description, Nationalité, Genre, Catégorie (SDN/Sociétés membres)
+- **Taux de complétude**: 88.5% avec métadonnées
 
-# Activer l'environnement
-conda activate test-gliner2
+### Intégration Impresso Archives Presse
+- **311 articles uniques** trouvés (août-octobre 1922)
+- **40 acteurs** recherchés avec 215 alias Wikidata (FR/EN/DE)
+- **17 acteurs** avec mentions presse
+- **Sélection intelligente**: 53 articles représentant tous les acteurs
+- **Export prosopographique**: 40 personnes format modèle avec URLs cliquables
 
-# Télécharger le modèle GLiNER2
-./scripts/download_models.sh
-```
-
-### 2. Préparer les données
-
-Placez vos textes bruts dans `data/raw/`:
-
-```bash
-cp /chemin/vers/corpus/*.txt data/raw/
-```
-
-### 3. Lancer le pipeline
-
-```bash
-# Option 1: Pipeline complet
-./scripts/run_full_pipeline.sh
-
-# Option 2: Étape par étape dans notebooks
-jupyter lab
-# Ouvrir: notebooks/01_exploration/, puis 02_ner/, puis 03_network/
-```
+### Top 5 Acteurs Médiatiques
+1. **Robert Cecil** (Q12702) - 105 articles
+2. **Henri Bergson** (Q42156) - 62 articles
+3. **Gilbert Murray** (Q538478) - 28 articles
+4. **Eric Drummond** (Q335120) - 23 articles
+5. **De Brouckere** - 20 articles
 
 ---
 
-## 📁 Structure du Projet
+## 📂 Structure du Projet
 
 ```
-test-gliner2/
-├── data/                    # Données (git-ignored)
-│   ├── raw/                 # Corpus brut Esperanto
-│   ├── processed/           # Textes nettoyés
-│   ├── annotated/           # Résultats NER (JSON/CSV)
-│   └── network/             # Listes d'entités pour graphes
+research-project-template/
+├── README.md                           # Ce fichier
+├── README_NER.md                       # Documentation pipeline NER
+├── README_IMPRESSO.md                  # Documentation intégration Impresso
+├── USER_GUIDE.md                       # Guide utilisateur complet
+├── PROJECT_STATE.md                    # État détaillé du projet
+├── environment.yml                     # Environnement conda reproductible
 │
-├── src/                     # Code source Python
-│   ├── preprocessing/       # Nettoyage texte
-│   ├── ner/                 # Extraction NER avec GLiNER2
-│   ├── network/             # Analyse de réseau
-│   └── utils/               # Utilitaires communs
+├── scripts/                            # Scripts production
+│   ├── run_ner_pipeline.py            # Pipeline NER complet
+│   ├── evaluate_ner.py                # Évaluation automatique
+│   ├── enrich_all_persons.py          # Enrichissement Wikidata 832 acteurs
+│   ├── validate_ner_quality.py        # Validation statistique qualité
+│   ├── impresso_1_wikidata_enrichment.py  # Extraction aliases Wikidata
+│   ├── impresso_2_search_articles.py      # Recherche Impresso API
+│   └── create_final_export.py             # Export prosopographique final
 │
-├── notebooks/               # Jupyter notebooks
-│   ├── 01_exploration/      # EDA du corpus
-│   ├── 02_ner/              # Tests GLiNER2
-│   └── 03_network/          # Visualisation réseaux
+├── outputs/                            # Fichiers de sortie
+│   ├── person_FINAL_CLEAN.xlsx        # 832 acteurs enrichis ⭐
+│   ├── export_final_40_personnes.xlsx # Export prosopographique ⭐
+│   ├── impresso_resultats_dedupliques.xlsx  # 311 articles presse ⭐
+│   ├── impresso_selection_60_articles.xlsx  # Sélection 53 articles
+│   ├── personnes_avec_aliases_wikidata.xlsx # 40 personnes + aliases
+│   ├── RAPPORT_FINAL.md               # Rapport technique complet
+│   ├── SELECTION_60_ARTICLES.md       # Méthodologie sélection
+│   └── impresso_search_report.txt     # Statistiques Impresso
 │
-├── models/
-│   ├── configs/             # Configurations GLiNER2
-│   └── checkpoints/         # Modèles (git-ignored)
-│
-├── outputs/                 # Résultats (git-ignored partiellement)
-│   ├── ner_results/         # Entités extraites
-│   ├── networks/            # Graphes (GraphML, etc.)
-│   ├── visualizations/      # Figures
-│   └── reports/             # Métriques qualité
-│
-├── tests/                   # Tests unitaires (pytest)
-├── docs/                    # Documentation
-└── scripts/                 # Scripts utilitaires
+└── tests/                              # Tests unitaires
+    └── test_ner_extraction.py         # Tests pipeline NER
 ```
 
 ---
 
-## 🤖 Utilisation des Agents Claude
+## 🚀 Installation et Utilisation
 
-Ce projet inclut **11 agents Claude Code** pour vous assister. Voir `docs/AGENTS_GUIDE.md` pour le guide complet.
+### Prérequis
+- Python 3.11+
+- Conda/Mamba
+- Token API Impresso (https://impresso-project.ch/datalab/token)
 
-**Agents principaux** :
-- `@gardien_projet` - Suivi de l'état du projet entre sessions
-- `@gestionnaire_contexte` - Gestion de la mémoire contextuelle
-- `@validateur_donnees` - Métriques qualité NER (précision, rappel, F1)
-- `@visualiseur_donnees` - Création de graphiques
-- `@git_helper` - Messages de commit professionnels
-
-**Exemple** :
+### Installation
 ```bash
-# Demander l'état actuel
-@gardien_projet Où en sommes-nous ?
+# Cloner le repo
+git clone https://github.com/gbottazzoli/gliner2-impresso-pipeline.git
+cd gliner2-impresso-pipeline
 
-# Valider les résultats NER
-@validateur_donnees Évalue la qualité des extractions dans outputs/ner_results/
+# Créer environnement conda
+conda env create -f environment.yml
+conda activate gliner2
 
-# Créer une visualisation
-@visualiseur_donnees Crée un graphe de réseau à partir de data/network/entities.csv
+# Télécharger modèle GLiNER
+python scripts/download_models.py
 ```
 
----
+### Workflows Principaux
 
-## 🛠️ Technologies
-
-**NER & NLP** :
-- GLiNER (zeroshot NER)
-- Transformers (Hugging Face)
-- spaCy (optionnel, normalisation)
-
-**Analyse de réseau** :
-- NetworkX (construction de graphes)
-- python-louvain (détection de communautés)
-
-**Visualisation** :
-- Matplotlib, Seaborn (graphiques)
-- Plotly, Pyvis (réseaux interactifs)
-
-**Environnement** :
-- Conda (gestion dépendances)
-- Pytest (tests unitaires)
-- Jupyter (notebooks)
-
----
-
-## 📊 Workflow Type
-
-```
-1. Nettoyage corpus       → src/preprocessing/clean_text.py
-2. Extraction NER         → src/ner/gliner_extractor.py
-3. Validation résultats   → @validateur_donnees
-4. Construction graphe    → src/network/build_network.py
-5. Analyse & visualisation→ notebooks/03_network/
-6. Export final           → outputs/reports/
-```
-
----
-
-## 📖 Documentation
-
-- `docs/PROJECT_STATE.md` - État actuel du projet (màj automatique par `@gardien_projet`)
-- `docs/METHODOLOGY.md` - Méthodologie scientifique reproductible
-- `docs/DATA_SOURCES.md` - Description du corpus SDN-Esperanto
-- `docs/AGENTS_GUIDE.md` - Guide d'utilisation des 11 agents Claude
-
----
-
-## 🧪 Tests
-
+#### 1. Pipeline NER Complet
 ```bash
-# Lancer tous les tests
-pytest
+python scripts/run_ner_pipeline.py
+python scripts/evaluate_ner.py
+```
 
-# Tests avec couverture
-pytest --cov=src --cov-report=html
+#### 2. Enrichissement Wikidata
+```bash
+python scripts/enrich_all_persons.py
+```
 
-# Tests spécifiques
-pytest tests/test_ner/
+#### 3. Recherche Impresso
+```bash
+# Étape 1: Extraction aliases Wikidata
+python scripts/impresso_1_wikidata_enrichment.py
+
+# Étape 2: Recherche archives presse
+python scripts/impresso_2_search_articles.py
+```
+
+#### 4. Export Prosopographique
+```bash
+python scripts/create_final_export.py
 ```
 
 ---
 
-## 📝 License
+## 📊 Fichiers de Sortie Principaux
 
-MIT License - Voir `LICENSE`
+### 1. `person_FINAL_CLEAN.xlsx`
+**832 acteurs enrichis** avec métadonnées contextuelles
+- entity_normalized (nom + Wikidata ID)
+- Description professionnelle
+- Nationalité
+- Genre
+- Catégorie (SDN/Sociétés membres)
+- Aliases originaux
+- Documents sources
+
+### 2. `export_final_40_personnes.xlsx`
+**Export prosopographique** 40 premiers acteurs
+- 11 colonnes: Nom, Prénom, Identifiant, Variantes, Description, Archives, Documents officiels, Presse, Nationalité, Genre, Catégorie
+- **Variantes**: Aliases originaux + Wikidata (FR/EN/DE)
+- **Presse**: Articles Impresso avec URLs cliquables
+- **Format**: `article_id (url) | titre | date | journal`
+
+### 3. `impresso_resultats_dedupliques.xlsx`
+**311 articles presse uniques** (août-octobre 1922)
+- Métadonnées: person_entity, article_id, title, date, newspaper, url
+- Distribution: 88.7% FR, 11.3% DE
+- Top journaux: JDG (73), Le Gaulois (34), GDL (30)
+
+### 4. `impresso_selection_60_articles.xlsx`
+**Sélection intelligente** 53 articles
+- Méthodologie 3 phases: priorité thématique → diversité → proportionnalité
+- Couvre 100% des 17 acteurs avec mentions
 
 ---
 
-## 🙏 Remerciements
+## 📖 Documentation Détaillée
 
-- **GLiNER** : Modèle NER zeroshot
-- **Template** : Créé avec [research-project-template](https://github.com/gbottazzoli/research-project-template)
-- **Corpus** : Société des Nations - Archives Esperanto
+- **[README_NER.md](README_NER.md)** - Pipeline NER, évaluation, métriques
+- **[README_IMPRESSO.md](README_IMPRESSO.md)** - Intégration Impresso complète
+- **[USER_GUIDE.md](USER_GUIDE.md)** - Guide utilisateur pas-à-pas
+- **[PROJECT_STATE.md](PROJECT_STATE.md)** - Historique complet du projet
+- **[RAPPORT_FINAL.md](outputs/RAPPORT_FINAL.md)** - Rapport technique détaillé
 
 ---
 
-**Statut** : 🟢 Setup initial complet | Voir `docs/PROJECT_STATE.md` pour détails
+## 🔬 Méthodologie
+
+### Pipeline NER
+1. **Extraction**: GLiNER v2.1 zeroshot (PERSON, ORGANIZATION, GPE)
+2. **Post-traitement**: Normalisation, déduplication, groupage
+3. **Évaluation**: Comparaison gold standard (Precision/Rappel/F1)
+
+### Enrichissement Contextuel
+1. **Extraction Wikidata**: Recherche par nom → récupération métadonnées
+2. **Extraction documentaire**: OCR → patterns regex → métadonnées
+3. **Fusion**: Wikidata prioritaire, fallback documents OCR
+
+### Intégration Impresso
+1. **Enrichissement aliases**: Extraction Wikidata FR/EN/DE (215 alias)
+2. **Recherche API**: 219 requêtes sur période août-oct 1922
+3. **Déduplication**: 339 entrées → 311 articles uniques
+4. **Sélection intelligente**: 3 phases pour réduire à ~60 articles
+
+---
+
+## 🔗 Références
+
+- **GLiNER**: https://github.com/urchade/GLiNER
+- **Impresso Project**: https://impresso-project.ch/
+- **Wikidata**: https://www.wikidata.org/
+- **Corpus SDN-Esperanto**: Archives Société des Nations Genève
+
+---
+
+## 📜 Licence
+
+Projet de recherche académique - Usage non-commercial
+
+---
+
+## ✨ Crédits
+
+Développé avec **Claude Code** (Anthropic)
+Session #1-8 (2025-11-16 → 2025-11-20)
+
+---
+
+**Dernière mise à jour**: 2025-11-20
+**Statut**: 🏁 Projet clôturé - Tous objectifs atteints
